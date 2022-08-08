@@ -1,0 +1,50 @@
+
+## 원래 application.properties인데 application.yml로 바꿈.6강. 
+server:
+  port: 8000
+  servlet:
+  ## context-path: /blog였다면 http://localhost:8080/blog로 주소 시작한다 의미
+  ## 47강에서 /blog에서 /로 바꿈.
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+## 부트는 .jsp를 기본 지원 안 하므로, 사용하려면 밑처럼 설정 해줘야.ㅣ     
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+      
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
+    username: cos
+    password: 1234
+    
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: update
+      naming:
+   ## @Entity(테이블만들기) 할때, 내가 private String myName;에서 컬러명을 myName으로 하는 것. 
+   ## 밑. 아닌 것 선택하면 my_name으로 컬럼명을 바꿔 버린다. 18강.   
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+ ## 밑 jpa의 numbering 전략 쓰지 않겠다 의미. 여기 blog에서는 mysql쓰므로, 그것의 numbering 전략쓰겠다 의미.
+      use-new-id-generator-mappings: false
+  ## 콘솔창에 jpa실행한 sql문을 보이게 하는 것     
+    show-sql: true
+    properties:
+   ## 밑. 그 sql문을 정렬해서 보여 주는 것.  
+      hibernate.format_sql: true
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+      
+cos:  
+  key: cos1234   
+      
+      
